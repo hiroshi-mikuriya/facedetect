@@ -14,7 +14,7 @@ LIBS      := -lpthread \
 
 UNAME := ${shell uname}
 ifeq ($(UNAME), Linux)
-CXXDEFS := -DENABLE_REAL_3D_LED_CUBE
+CXXFLAGS := $(CXXFLAGS) -DENABLE_REAL_3D_LED_CUBE
 LIBS := $(LIBS) -lraspicamcv
 endif
 
@@ -35,4 +35,4 @@ clean:
 	$(RM) -f $(TARGET) *.o
 
 .cpp.o:
-	$(CXX) -c $(CXXFLAGS) $(CXXDEFS) $(INCLUDES) $<
+	$(CXX) -c $(CXXFLAGS) $(INCLUDES) $<

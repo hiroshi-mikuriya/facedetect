@@ -15,12 +15,12 @@ int main()
             std::cerr << "failed to get camera image." << std::endl;
             continue;
         }
-        double r = 0.2;
+        double r = 0.25;
         std::vector<cv::Rect> rects;
         cv::Mat rimg;
         cv::resize(img, rimg, cv::Size(), r, r);
         cv::Size min(static_cast<int>(100 * r), static_cast<int>(100 * r));
-        cascade.detectMultiScale(rimg, rects, 1.1, 10, 0, min);
+        cascade.detectMultiScale(rimg, rects, 1.1, 5, 0, min);
         for(auto rc : rects){
             cv::Rect rc2 = { 
                 static_cast<int>(rc.x / r), 

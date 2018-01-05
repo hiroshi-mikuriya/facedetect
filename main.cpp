@@ -3,14 +3,14 @@
 
 int main()
 {
-    MyCamera cap(0);
-    if(!cap.isOpened()){
+    MyCamera camera(0);
+    if(!camera.isOpened()){
         std::cerr << "failed to open camera" << std::endl;
     }
     cv::CascadeClassifier cascade("./haarcascade_frontalface_default.xml");
     for(;;){
         cv::Mat img;
-        cap >> img;
+        camera >> img;
         std::vector<cv::Rect> rects;
         cascade.detectMultiScale(img, rects, 1.1, 10, 0, { 100, 100 });
         for(auto rc : rects){

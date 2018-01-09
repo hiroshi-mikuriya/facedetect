@@ -49,8 +49,9 @@ int main()
         cascade.detectMultiScale(rimg, rects, 1.1, 5, 0, cv::Size(100, 100) * r);
         for(auto rc : rects){
             cv::rectangle(img, rc / r, cv::Scalar(0, 255, 0));
-            std::cout << rc << std::endl;
         }
+        cv::imshow("camera", img);
+        cv::waitKey(1);
     }
     return 0;
 }

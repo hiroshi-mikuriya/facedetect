@@ -18,7 +18,7 @@ namespace
     cv::Mat gamma(cv::Mat const & src, double g)
     {
         uchar lut[256] = { 0 };
-        for(int i = 0; i < sizeof(lut); ++i){
+        for(size_t i = 0; i < sizeof(lut); ++i){
             lut[i] = static_cast<int>(std::pow(i / 255.0, 1 / g) * 255);
         }
         cv::Mat dst;
@@ -49,9 +49,8 @@ int main()
         cascade.detectMultiScale(rimg, rects, 1.1, 5, 0, cv::Size(100, 100) * r);
         for(auto rc : rects){
             cv::rectangle(img, rc / r, cv::Scalar(0, 255, 0));
+            std::cout << rc << std::endl;
         }
-        cv::imshow("image", img);
-        cv::waitKey(1);
     }
     return 0;
 }

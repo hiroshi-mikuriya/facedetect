@@ -1,5 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include "mycamera.hpp"
+#include "picojson.h"
 
 namespace
 {

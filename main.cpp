@@ -36,6 +36,30 @@ namespace
         cv::imshow("faces", canvas);
         cv::waitKey(1);
     }
+
+    std::string make_json(cv::Mat img, std::vector<cv::Rect> const & faces)
+    {
+        picojson::object obj;
+        {
+            picojson::array ary;
+            for(auto face : faces){
+                picojson::object o;
+                o.emplace(std::make_pair("x", face.x + 0.0));
+                o.emplace(std::make_pair("y", face.y + 0.0));
+                o.emplace(std::make_pair("width", face.width + 0.0));
+                o.emplace(std::make_pair("height", face.height + 0.0));
+                ary.emplace_back(o);
+            }
+            obj.emplace("faces", ary);
+        }
+        {
+            picojson::object s;
+            s.emplace(std::make_pair("width", img.cols + 0.0));
+            s.emplace(std::make_pair("height", img.rows + 0.0));
+            obj.emplace("size", s);
+        }
+        return picojson::value(obj).serialize();
+    }
 }
 
 int main()
@@ -66,6 +90,7 @@ int main()
             return faces;
         }();
         show(img, faces);
+        std::cout << make_json(img, faces) << std::endl;
     }
     return 0;
 }

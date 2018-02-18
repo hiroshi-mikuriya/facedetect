@@ -26,6 +26,16 @@ namespace
         cv::LUT(src, cv::Mat(cv::Size(256, 1), CV_8U, lut), dst);
         return dst;
     }
+
+    void show(cv::Mat m, std::vector<cv::Rect> const & faces)
+    {
+        auto canvas = m.clone();
+        for(auto face : faces){
+            cv::rectangle(canvas, face, cv::Scalar(0, 255, 0));
+        }
+        cv::imshow("faces", canvas);
+        cv::waitKey(1);
+    }
 }
 
 int main()
@@ -48,11 +58,14 @@ int main()
         cv::Mat rimg;
         cv::resize(img, rimg, cv::Size(), r, r);
         cascade.detectMultiScale(rimg, rects, 1.1, 5, 0, cv::Size(100, 100) * r);
-        for(auto rc : rects){
-            cv::rectangle(img, rc / r, cv::Scalar(0, 255, 0));
-        }
-        cv::imshow("camera", img);
-        cv::waitKey(1);
+        auto const faces = [rects, r](){
+            std::vector<cv::Rect> faces;
+            for(auto rc : rects){
+                faces.push_back(rc / r);
+            }
+            return faces;
+        }();
+        show(img, faces);
     }
     return 0;
 }

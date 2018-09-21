@@ -1,5 +1,4 @@
 #include <opencv2/opencv.hpp>
-#include "mycamera.hpp"
 #include "picojson.h"
 
 namespace
@@ -64,7 +63,7 @@ namespace
 
 int main()
 {
-    MyCamera camera(0);
+    cv::VideoCapture camera(0);
     if(!camera.isOpened()){
         std::cerr << "failed to open camera" << std::endl;
     }
@@ -89,7 +88,7 @@ int main()
             }
             return faces;
         }();
-        show(img, faces);
+        // show(img, faces);
         std::cout << make_json(img, faces) << std::endl;
     }
     return 0;

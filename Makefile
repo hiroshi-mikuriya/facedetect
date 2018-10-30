@@ -12,7 +12,7 @@ INCLUDES  := `pkg-config opencv --cflags` \
 	     -I $(PROJ_ROOT)/src/remove \
 	     -I $(PROJ_ROOT)/src/update
 SRCS      := main.cpp \
-		 $(shell find src -name "*.cpp")
+		 $(shell find $(PROJ_ROOT)/src -name "*.cpp")
 LIBS      := -lpthread \
 	     -ldl \
 	     `pkg-config opencv --libs` \
